@@ -16,21 +16,25 @@ body {
 
 /*to be removed*/
 
-header, main, footer, div {
-  border: 1px solid black;
-}
+/*header, main, footer, div {
+  border: 1px solid #1ec503;
+}*/
 
 #game-container {
-  background-color: #ffddc5;
+  background-color: black;
   height: 100vh;
 }
 
 /*LAYOUT*/
 
+.text {
+  color: #1ec503;
+}
+
 /*SPLASH*/
 
 .big-button {
-  background-color: #6befbd;
+  background-color: #1ec503;
   font-family: 'Courier New', sans-serif;
   border-radius: 0.5rem;
   margin: 10% 30%;
@@ -57,7 +61,14 @@ header, main, footer, div {
 #header, #footer {
   height: 15%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+h1 {
+  text-align: center;
+  color: #1ec503;
+  font-weight: normal;
+  letter-spacing: 0.8rem;
 }
 
 #main, .main-container {
@@ -69,6 +80,16 @@ header, main, footer, div {
 }
 
 /*GAMESCREEN*/
+
+.image {
+  width: 100px;
+}
+
+.timer, .score {
+  margin: 2rem 0;
+  font-size: 4rem;
+  text-align: center;
+}
 
 .grid {
   display: flex;
@@ -83,12 +104,23 @@ header, main, footer, div {
 .cell {
   width: 30%;
   height: 20%;
+  border: 1px solid #1ec503;
 }
 
-/*#num1, #num4, #num7 {
-  margin-left: 2rem;
+/*END SCREEN*/
+
+.show-score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
 }
 
-#num3, #num6, #num9 {
-  margin-right: 2rem;
-}*/
+.end-button {
+  background-color: #1ec503;
+  font-family: 'Courier New', sans-serif;
+  border-radius: 0.5rem;
+  border: none;
+  height: 6rem;
+  font-size: 2rem;
+}

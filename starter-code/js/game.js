@@ -1,10 +1,6 @@
 'use strict';
 
-var header = document.getElementById('header');
-var main = document.getElementById('main');
-var footer = document.getElementById('footer');
-
-function Whack(container) {
+function Whack(container, header, main, footer) {
   var self = this;
   self.container = container;
   self.header = header;
@@ -14,11 +10,28 @@ function Whack(container) {
   self.timer = 0;
   self.player1Score = 0;
   self.player2Score = 0;
-  self.gameTimer = 0;
-  self.hackersArray = [{
-    name: 'Torgeir',
-    image: ""
-  }];
+  self.highScores = [];
+  self.hackersArray = [
+    'images/Torgeir.jpg',
+    'images/Bryan.jpg',
+    'images/Clara.jpg',
+    'images/Contantinos.jpg',
+    'images/Cristian.jpg',
+    'images/Christina.jpg',
+    'images/Dafne.jpg',
+    'images/David.jpg',
+    'images/Desiree.jpg',
+    'images/Dominik.jpg',
+    'images/Eloi.jpg',
+    'images/Elvin.jpg',
+    'images/Felice.jpg',
+    'images/Jean.jpg',
+    'images/Jordi.jpg',
+    'images/Micahl.jpg',
+    'images/Sara.jpg',
+    'images/Sarah.jpg',
+    'images/Tiago.jpg'
+  ];
 
   // CREATING THE SCREENS
   //create the first screen - SPLASH
@@ -30,8 +43,10 @@ function Whack(container) {
     // self.container.appendChild(header);
     //HEADER TEXT
     var h1 = document.createElement('h1');
-    h1.innerText = 'whack-a-hack';
+    h1.classList.add('text');
+    h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
+    self.gameTimer = 10.00;
 
     //MAIN
     // var main = document.createElement('main');
@@ -44,7 +59,7 @@ function Whack(container) {
     var playButton = document.createElement('button');
     playButton.classList.add('big-button');
     // playButton.type = 'button';
-    playButton.innerHTML = 'play';
+    playButton.innerHTML = 'whack';
     div.appendChild(playButton);
     //CHOOSE HOW MANY PLAYERS
     var divPlayer = document.createElement('div');
@@ -73,6 +88,7 @@ function Whack(container) {
     // self.container.appendChild(footer);
     //FOOTER TEXT
     var footerText = document.createElement('p');
+    footerText.classList.add('text');
     footerText.innerText = 'Whack what?';
     self.footer.appendChild(footerText);
     //FOOTER BUTTONS
@@ -93,23 +109,27 @@ function Whack(container) {
   self.createGameScreen = function() {
     self.destroyScreens();
     //GAMESCREEN HEADER
-    var timer = document.createElement('div');
-    timer.classList.add('timer');
-    self.header.appendChild(timer);
+    self.header.classList.add('header-game-screen');
+    var timerDiv = document.createElement('div');
+    timerDiv.classList.add('timer');
+    self.header.appendChild(timerDiv);
     var timerSpan = document.createElement('span');
     timerSpan.setAttribute('id', 'countdown');
-    timerSpan.innerHTML = '00';
-    timer.appendChild(timerSpan);
+    timerSpan.classList.add('text');
+    timerSpan.innerHTML = '--';
+    timerDiv.appendChild(timerSpan);
 
-    var score = document.createElement('div');
-    score.classList.add('score');
-    self.header.appendChild(score);
+    var scoreDiv = document.createElement('div');
+    scoreDiv.classList.add('score');
+    self.header.appendChild(scoreDiv);
     var scoreSpan = document.createElement('span');
+    scoreSpan.classList.add('text');
     scoreSpan.setAttribute('id', 'updateScore');
     scoreSpan.innerHTML = '0';
-    score.appendChild(scoreSpan);
+    scoreDiv.appendChild(scoreSpan);
 
     // GAMESCREEN MAIN
+    self.main.classList.add('main-game-screen');
     var grid = document.createElement('div');
     grid.classList.add('grid');
     self.main.appendChild(grid);
@@ -120,7 +140,10 @@ function Whack(container) {
       grid.appendChild(cell);
     }
 
+
+
     // GAMESCREEN FOOTER
+    self.footer.classList.add('footer-game-screen');
     var messageDiv = document.createElement('div');
     messageDiv.setAttribute('id', 'displayMessage');
     footer.appendChild(messageDiv);
@@ -128,16 +151,42 @@ function Whack(container) {
     message.classList.add('footer-text');
     message.innerHTML = 'SHOW MESSAGE HERE';
     messageDiv.appendChild(message);
+    self.startTimer();
+    self.addRandomImage(self.hackersArray);
   };
 
   // CREATING THE END SCREEN
   self.createEndScreen = function() {
-    self.destroyScreens();
+    // HEADER END SCREEN
+    var gameOver = document.createElement('div');
+    gameOver.classList.add('header-end-screen');
+    self.header.appendChild(gameOver);
+    var headerEnd = document.createElement('h1');
+    headerEnd.innerHTML = 'time_out!';
+    gameOver.appendChild(headerEnd);
 
+    // MAIN END SCREEN
+    var mainEndScreen = document.createElement('div');
+    mainEndScreen.classList.add('show-score', 'text');
+    self.main.appendChild(mainEndScreen);
+    var finalScore = document.createElement('span');
+    finalScore.innerHTML = 'your_score_' + self.player1Score;
+    finalScore.classList.add('finalScore');
+    mainEndScreen.appendChild(finalScore);
+
+    // FOOTER END SCREEN
+    var footerDiv = document.createElement('div');
+    footerDiv.classList.add('reset');
+    self.footer.appendChild(footerDiv);
+    var playAgain = document.createElement('button');
+    playAgain.classList.add('end-button');
+    playAgain.innerHTML = 'whack_again?';
+    footerDiv.appendChild(playAgain);
+    // RESET TO SPLASH IF USER WANT TO PLAY AGAIN
+    playAgain.addEventListener('click', self.destroyScreens);
+    playAgain.addEventListener('click', self.createSplash);
   };
 
-
-  // DESTROYING THE SCREENS
   // DESTROY SCREEN
   self.destroyScreens = function() {
     while (self.header.firstChild) {
@@ -149,19 +198,47 @@ function Whack(container) {
     while (self.footer.firstChild) {
       self.footer.removeChild(self.footer.firstChild);
     }
-
-
   };
-  // DESTROY GAME
-  // self.destroyGameScreen = function() {
-  //
-  // };
-  // DESTROY END
-  // self.destroyEndScreen = function() {
-  //
-  // };
+
 
   // MAKE THE GAME WORK
+  // self.startGame = function() {
+  //
+  // }
+
+
+  // ADD RANDOMIMAGE TO DIV
+  self.addRandomImage = function(hackersArray) {
+    var clearRandom = setInterval(function() {
+      self.gameTimer -= 2;
+
+      var randomNumber = Math.floor(Math.random() * 9);
+      var randomImage = hackersArray[randomNumber];
+      var randomDiv = document.getElementById('num' + randomNumber);
+      randomDiv.innerHTML = randomImage;
+      console.log(randomImage);
+      if (self.gameTimer <= 0) {
+        clearInterval(clearRandom);
+      }
+    }, 2000);
+
+  };
+
+  // TIMER
+  self.startTimer = function() {
+    var intervalId = setInterval(function() {
+      self.gameTimer -= 0.01;
+      document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);
+      if (self.gameTimer <= 0) {
+        clearInterval(intervalId);
+        self.destroyScreens();
+        self.createEndScreen();
+      }
+    }, 10);
+
+  };
+
+
 
 
   // ON PAGE LOAD!
@@ -169,10 +246,5 @@ function Whack(container) {
     self.createSplash();
     console.log('init');
   };
-
-  // self.playButton.addEventListener('click', function() {
-  //   console.log('clicked');
-  // });
-
 
 }
