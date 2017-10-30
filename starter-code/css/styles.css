@@ -1,0 +1,94 @@
+/*DEFAULT SETUP*/
+
+html {
+  box-sizing: border-box;
+  font-family: 'Courier New', sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/*to be removed*/
+
+header, main, footer, div {
+  border: 1px solid black;
+}
+
+#game-container {
+  background-color: #ffddc5;
+  height: 100vh;
+}
+
+/*LAYOUT*/
+
+/*SPLASH*/
+
+.big-button {
+  background-color: #6befbd;
+  font-family: 'Courier New', sans-serif;
+  border-radius: 0.5rem;
+  margin: 10% 30%;
+  border: none;
+  height: 6rem;
+  font-size: 2rem;
+}
+
+.big-button:focus {
+  outline: none !important;
+}
+
+.player-choice {
+  display: flex;
+  justify-content: space-around;
+}
+
+.player1, .player2 {
+  padding: 0 2rem;
+  padding: 5rem 0rem;
+  font-size: 1.5rem;
+}
+
+#header, #footer {
+  height: 15%;
+  display: flex;
+  justify-content: center;
+}
+
+#main, .main-container {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+/*GAMESCREEN*/
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  /*for bigger screens*/
+  /*padding: 1rem 12rem;*/
+}
+
+.cell {
+  width: 30%;
+  height: 20%;
+}
+
+/*#num1, #num4, #num7 {
+  margin-left: 2rem;
+}
+
+#num3, #num6, #num9 {
+  margin-right: 2rem;
+}*/

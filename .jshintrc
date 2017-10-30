@@ -4,6 +4,7 @@
   "strict": "global",
   "globals": {
     "window": true,
-    "console": true
+    "console": true,
+    "document": true
   }
 }
