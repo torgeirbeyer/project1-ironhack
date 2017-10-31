@@ -4,6 +4,8 @@
     "Whack": true,
     "console": true,
     "document": true,
-    "self": true
+    "self": true,
+    "setInterval": true,
+    "clearInterval": true
   }
 }

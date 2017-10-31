@@ -15,9 +15,9 @@ function Whack(container, header, main, footer) {
     'images/Torgeir.jpg',
     'images/Bryan.jpg',
     'images/Clara.jpg',
-    'images/Contantinos.jpg',
+    'images/Constantinos.jpg',
     'images/Cristian.jpg',
-    'images/Christina.jpg',
+    'images/Cristina.jpg',
     'images/Dafne.jpg',
     'images/David.jpg',
     'images/Desiree.jpg',
@@ -26,8 +26,9 @@ function Whack(container, header, main, footer) {
     'images/Elvin.jpg',
     'images/Felice.jpg',
     'images/Jean.jpg',
+    'images/Juan.jpg',
     'images/Jordi.jpg',
-    'images/Micahl.jpg',
+    'images/Michal.jpg',
     'images/Sara.jpg',
     'images/Sarah.jpg',
     'images/Tiago.jpg'
@@ -46,7 +47,7 @@ function Whack(container, header, main, footer) {
     h1.classList.add('text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.gameTimer = 10.00;
+    self.gameTimer = 200.00;
 
     //MAIN
     // var main = document.createElement('main');
@@ -142,6 +143,7 @@ function Whack(container, header, main, footer) {
 
 
 
+
     // GAMESCREEN FOOTER
     self.footer.classList.add('footer-game-screen');
     var messageDiv = document.createElement('div');
@@ -210,21 +212,30 @@ function Whack(container, header, main, footer) {
   // ADD RANDOMIMAGE TO DIV
   self.addRandomImage = function(array) {
     var clearRandom = setInterval(function() {
-      self.gameTimer -= 2;
-      // selecting the image
-      var randomNumber = Math.floor(Math.random() * array.length);
-      var randomImage = array[randomNumber];
-      return randomImage;
+      if (self.gameTimer > 0) {
+        // selecting the image
+        var randomNumber = Math.floor(Math.random() * array.length);
+        var randomImage = array[randomNumber];
+        var randomNumberDiv = Math.floor((Math.random() * 9) + 1);
+        var randomDiv = document.getElementById('num' + randomNumberDiv);
+        console.log(randomDiv);
+        var image = document.createElement('img');
+        image.classList.add('show-image');
+        image.setAttribute('src', randomImage);
+        image.setAttribute('width', '100%');
+        image.setAttribute('height', '100%');
+        randomDiv.appendChild(image);
+        var removeImage = setTimeout(function() {
+          randomDiv.removeChild(image);
+        }, 1000);
 
 
-      // var randomNumber = Math.floor(Math.random() * 9);
-      // var randomImage = hackersArray[randomNumber];
-      // var randomDiv = document.getElementById('num' + randomNumber);
-      // randomDiv.innerHTML = randomImage;
-      // console.log(randomDiv);
-      if (self.gameTimer <= 0) {
+        // randomDiv.innerHTML = randomImage;
+      } else {
         clearInterval(clearRandom);
+
       }
+
     }, 2000);
 
   };

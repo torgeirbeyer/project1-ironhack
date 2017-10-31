@@ -8,6 +8,7 @@ function init() {
   var whackGame = new Whack(container, header, main, footer);
 
   whackGame.init();
+  console.log(whackGame);
   click();
 }
 
