@@ -7,9 +7,11 @@ function Whack(container, header, main, footer) {
   self.main = main;
   self.footer = footer;
   //variables to be updated
-  self.timer = 0;
+  // self.gametimer = 10;
+  self.removeClass = 1000;
+  self.addImage = 2000;
   self.player1Score = 0;
-  self.player2Score = 0;
+  // self.player2Score = 0;
   self.highScores = [];
   self.hackersArray = [
     'images/Torgeir.jpg',
@@ -47,7 +49,8 @@ function Whack(container, header, main, footer) {
     h1.classList.add('text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.gameTimer = 200.00;
+    self.gameTimer = 10.00;
+    self.player1Score = 0;
 
     //MAIN
     // var main = document.createElement('main');
@@ -102,6 +105,8 @@ function Whack(container, header, main, footer) {
     hackers.innerText = 'Hackers';
     footer.appendChild(hackers);
 
+    // add background sound
+
     // USER INTERACTION
     playButton.addEventListener('click', self.createGameScreen);
   };
@@ -126,7 +131,7 @@ function Whack(container, header, main, footer) {
     var scoreSpan = document.createElement('span');
     scoreSpan.classList.add('text');
     scoreSpan.setAttribute('id', 'updateScore');
-    scoreSpan.innerHTML = '0';
+    scoreSpan.innerHTML = self.player1Score;
     scoreDiv.appendChild(scoreSpan);
 
     // GAMESCREEN MAIN
@@ -139,6 +144,10 @@ function Whack(container, header, main, footer) {
       cell.classList.add('cell');
       cell.setAttribute('id', 'num' + (ix));
       grid.appendChild(cell);
+    }
+    var allCells = document.querySelectorAll('.cell');
+    for (var jx = 0; jx < allCells.length; jx++) {
+      allCells[jx].addEventListener('click', self.checkClick);
     }
 
 
@@ -203,11 +212,6 @@ function Whack(container, header, main, footer) {
   };
 
 
-  // MAKE THE GAME WORK
-  // self.startGame = function() {
-  //
-  // }
-
 
   // ADD RANDOMIMAGE TO DIV
   self.addRandomImage = function(array) {
@@ -227,17 +231,11 @@ function Whack(container, header, main, footer) {
         randomDiv.appendChild(image);
         var removeImage = setTimeout(function() {
           randomDiv.removeChild(image);
-        }, 1000);
-
-
-        // randomDiv.innerHTML = randomImage;
+        }, self.removeClass);
       } else {
         clearInterval(clearRandom);
-
       }
-
-    }, 2000);
-
+    }, self.addImage);
   };
 
   // TIMER
@@ -251,6 +249,15 @@ function Whack(container, header, main, footer) {
         self.createEndScreen();
       }
     }, 10);
+  };
+
+  self.checkClick = function(e) {
+    if (e.target.classList.contains('show-image')) {
+      self.player1Score++;
+      self.gameTimer += 4;
+    } else {
+      self.gameTimer -= 2;
+    }
 
   };
 

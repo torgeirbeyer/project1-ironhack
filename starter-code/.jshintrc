@@ -6,6 +6,7 @@
     "document": true,
     "self": true,
     "setInterval": true,
-    "clearInterval": true
+    "clearInterval": true,
+    "setTimeout": true
   }
 }

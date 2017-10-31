@@ -16,7 +16,8 @@ body {
 
 /*to be removed*/
 
-/*header, main, footer, div {
+/*
+header, main, footer, div {
   border: 1px solid #1ec503;
 }*/
 
@@ -62,6 +63,7 @@ body {
   height: 15%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 h1 {
@@ -81,10 +83,12 @@ h1 {
 
 /*GAMESCREEN*/
 
-image {
-  width: 100%;
-  height: 100%;
-  background-color: red;
+.show-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: all 1s;
+  vertical-align: bottom;
 }
 
 .timer, .score {
@@ -104,9 +108,12 @@ image {
 }
 
 .cell {
+  display: flex;
+  justify-content: center;
   width: 30%;
   height: 20%;
-  border: 1px solid #1ec503;
+  /*border: 1px solid #1ec503;*/
+  align-items: center;
 }
 
 /*END SCREEN*/
@@ -125,4 +132,22 @@ image {
   border: none;
   height: 6rem;
   font-size: 2rem;
+}
+
+@media (max-width: 375px) {
+  .timer, .score {
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+  }
+  h1 {
+    font-size: 1.5rem;
+    align-self: center;
+  }
+  .show-score {
+    font-size: 2rem;
+  }
+  .end-button {
+    height: 4rem;
+    align-self: center;
+  }
 }
