@@ -208,15 +208,20 @@ function Whack(container, header, main, footer) {
 
 
   // ADD RANDOMIMAGE TO DIV
-  self.addRandomImage = function(hackersArray) {
+  self.addRandomImage = function(array) {
     var clearRandom = setInterval(function() {
       self.gameTimer -= 2;
+      // selecting the image
+      var randomNumber = Math.floor(Math.random() * array.length);
+      var randomImage = array[randomNumber];
+      return randomImage;
 
-      var randomNumber = Math.floor(Math.random() * 9);
-      var randomImage = hackersArray[randomNumber];
-      var randomDiv = document.getElementById('num' + randomNumber);
-      randomDiv.innerHTML = randomImage;
-      console.log(randomImage);
+
+      // var randomNumber = Math.floor(Math.random() * 9);
+      // var randomImage = hackersArray[randomNumber];
+      // var randomDiv = document.getElementById('num' + randomNumber);
+      // randomDiv.innerHTML = randomImage;
+      // console.log(randomDiv);
       if (self.gameTimer <= 0) {
         clearInterval(clearRandom);
       }
@@ -237,9 +242,6 @@ function Whack(container, header, main, footer) {
     }, 10);
 
   };
-
-
-
 
   // ON PAGE LOAD!
   self.init = function() {
