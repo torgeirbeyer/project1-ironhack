@@ -16,8 +16,7 @@ body {
 
 /*to be removed*/
 
-/*
-header, main, footer, div {
+/*header, main, footer, div {
   border: 1px solid #1ec503;
 }*/
 
@@ -84,11 +83,16 @@ h1 {
 /*GAMESCREEN*/
 
 .show-image {
-  max-width: 100%;
-  max-height: 100%;
   object-fit: contain;
-  transition: all 1s;
-  vertical-align: bottom;
+}
+
+@keyframes ease-in {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .timer, .score {

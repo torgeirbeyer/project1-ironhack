@@ -7,9 +7,9 @@ function Whack(container, header, main, footer) {
   self.main = main;
   self.footer = footer;
   //variables to be updated
-  // self.gametimer = 10;
-  self.removeClass = 1000;
-  self.addImage = 2000;
+  self.gametimer = 200;
+  self.removeClassTimer = 2000;
+  self.addImageTimer = 2000;
   self.player1Score = 0;
   // self.player2Score = 0;
   self.highScores = [];
@@ -36,6 +36,8 @@ function Whack(container, header, main, footer) {
     'images/Tiago.jpg'
   ];
 
+  self.score = null;
+
   // CREATING THE SCREENS
   //create the first screen - SPLASH
   self.createSplash = function() {
@@ -49,7 +51,7 @@ function Whack(container, header, main, footer) {
     h1.classList.add('text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.gameTimer = 10.00;
+    self.gameTimer = 20.00;
     self.player1Score = 0;
 
     //MAIN
@@ -113,6 +115,7 @@ function Whack(container, header, main, footer) {
 
   // CREATING THE GAMESCREEN
   self.createGameScreen = function() {
+
     self.destroyScreens();
     //GAMESCREEN HEADER
     self.header.classList.add('header-game-screen');
@@ -122,17 +125,18 @@ function Whack(container, header, main, footer) {
     var timerSpan = document.createElement('span');
     timerSpan.setAttribute('id', 'countdown');
     timerSpan.classList.add('text');
-    timerSpan.innerHTML = '--';
+    timerSpan.innerHTML = self.gameTimer;
     timerDiv.appendChild(timerSpan);
 
     var scoreDiv = document.createElement('div');
     scoreDiv.classList.add('score');
     self.header.appendChild(scoreDiv);
-    var scoreSpan = document.createElement('span');
-    scoreSpan.classList.add('text');
-    scoreSpan.setAttribute('id', 'updateScore');
-    scoreSpan.innerHTML = self.player1Score;
-    scoreDiv.appendChild(scoreSpan);
+    self.score = document.createElement('span');
+    self.score.classList.add('text');
+    self.score.setAttribute('id', 'updateScore');
+    self.score.innerHTML = self.player1Score;
+    scoreDiv.appendChild(self.score);
+
 
     // GAMESCREEN MAIN
     self.main.classList.add('main-game-screen');
@@ -222,7 +226,6 @@ function Whack(container, header, main, footer) {
         var randomImage = array[randomNumber];
         var randomNumberDiv = Math.floor((Math.random() * 9) + 1);
         var randomDiv = document.getElementById('num' + randomNumberDiv);
-        console.log(randomDiv);
         var image = document.createElement('img');
         image.classList.add('show-image');
         image.setAttribute('src', randomImage);
@@ -231,11 +234,11 @@ function Whack(container, header, main, footer) {
         randomDiv.appendChild(image);
         var removeImage = setTimeout(function() {
           randomDiv.removeChild(image);
-        }, self.removeClass);
+        }, self.removeClassTimer);
       } else {
         clearInterval(clearRandom);
       }
-    }, self.addImage);
+    }, self.addImageTimer);
   };
 
   // TIMER
@@ -252,19 +255,41 @@ function Whack(container, header, main, footer) {
   };
 
   self.checkClick = function(e) {
+    self.checkScore();
     if (e.target.classList.contains('show-image')) {
       self.player1Score++;
+      self.updateScore();
       self.gameTimer += 4;
+      e.target.style.display = "none";
     } else {
       self.gameTimer -= 2;
     }
 
   };
 
+  self.checkScore = function() {
+    if (self.player1Score > 20) {
+      self.addImageTimer = 800;
+      self.removeClassTimer = 250;
+    } else if (self.player1Score > 10) {
+      self.addImageTimer = 1000;
+      self.removeClassTimer = 500;
+    } else if (self.player1Score > 5) {
+      self.addImageTimer = 1500;
+      self.removeClassTimer = 700;
+    }
+  };
+
+  // reset variables to start
+
+
+  // update score in GAMESCREEN
+  self.updateScore = function() {
+    self.score.innerHTML = self.player1Score;
+  };
   // ON PAGE LOAD!
   self.init = function() {
     self.createSplash();
-    console.log('init');
   };
 
 }
