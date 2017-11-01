@@ -79,10 +79,7 @@ function Whack(container, header, main, footer) {
     footerText.innerText = 'how_to_play';
     self.footer.appendChild(footerText);
 
-    // add background sound
-    // myAudio.play();
-    // myAudio.loop = true;
-
+    // new Audio('sounds/brown_noise.mp3').play();
     // USER INTERACTION
     playButton.addEventListener('click', self.createGameScreen);
     footerText.addEventListener('click', self.showRules);
@@ -129,15 +126,6 @@ function Whack(container, header, main, footer) {
       allCells[jx].addEventListener('click', self.checkClick);
     }
 
-    // GAMESCREEN FOOTER
-    // self.footer.classList.add('footer-game-screen');
-    // var messageDiv = document.createElement('div');
-    // messageDiv.setAttribute('id', 'displayMessage');
-    // footer.appendChild(messageDiv);
-    // var message = document.createElement('span');
-    // message.classList.add('footer-text', 'text');
-    // message.innerHTML = 'SHOW MESSAGE HERE';
-    // messageDiv.appendChild(message);
     self.startGame();
   };
 
