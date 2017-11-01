@@ -37,15 +37,12 @@ function Whack(container, header, main, footer) {
   ];
 
   self.score = null;
+  self.message = "";
 
   // CREATING THE SCREENS
   //create the first screen - SPLASH
   self.createSplash = function() {
     //HEADER
-    // var header = document.createElement('header');
-    // header.classList.add('header');
-    // header.setAttribute('id', 'header');
-    // self.container.appendChild(header);
     //HEADER TEXT
     var h1 = document.createElement('h1');
     h1.classList.add('text');
@@ -53,11 +50,9 @@ function Whack(container, header, main, footer) {
     self.header.appendChild(h1);
     self.gameTimer = 20.00;
     self.player1Score = 0;
+    console.log(self.player1Score);
 
     //MAIN
-    // var main = document.createElement('main');
-    // self.container.appendChild(main);
-    // main.classList.add('main');
     //PLAY BUTTON
     var div = document.createElement('div');
     div.classList.add('main-container');
@@ -67,45 +62,25 @@ function Whack(container, header, main, footer) {
     // playButton.type = 'button';
     playButton.innerHTML = 'whack';
     div.appendChild(playButton);
-    //CHOOSE HOW MANY PLAYERS
-    var divPlayer = document.createElement('div');
-    divPlayer.classList.add('player-choice');
-    main.appendChild(divPlayer);
-    var playerLabel1 = document.createElement('label');
-    playerLabel1.innerText = 'one player';
-    playerLabel1.classList.add('player1');
-    divPlayer.appendChild(playerLabel1);
-    // var player1 = document.createElement('input');
-    // player1.type = 'checkbox';
-    // player1.innerText = '2 Players';
-    // divPlayer.appendChild(player1);
-    // var playerLabel2 = document.createElement('label');
-    // playerLabel2.innerText = 'two players';
-    // playerLabel2.classList.add('player2');
-    // divPlayer.appendChild(playerLabel2);
-    // var player2 = document.createElement('input');
-    // player2.type = 'checkbox';
-    // player2.innerText = '2 Players';
-    // divPlayer.appendChild(player2);
 
     //FOOTER
-    // var footer = document.createElement('footer');
-    // footer.classList.add('footer');
-    // self.container.appendChild(footer);
     //FOOTER TEXT
     var footerText = document.createElement('p');
     footerText.classList.add('text');
-    footerText.innerText = 'Whack what?';
+    footerText.innerText = 'how_to_play';
     self.footer.appendChild(footerText);
+
+    footerText.addEventListener('click', self.showRules);
     //FOOTER BUTTONS
+
     // var badPeople = document.createElement('input');
     // badPeople.type = 'radio';
     // badPeople.innerText = 'Bad people';
     // footer.appendChild(badPeople);
-    var hackers = document.createElement('input');
-    hackers.type = 'radio';
-    hackers.innerText = 'Hackers';
-    footer.appendChild(hackers);
+    // var hackers = document.createElement('input');
+    // hackers.type = 'radio';
+    // hackers.innerText = 'Hackers';
+    // footer.appendChild(hackers);
 
     // add background sound
 
@@ -163,7 +138,7 @@ function Whack(container, header, main, footer) {
     messageDiv.setAttribute('id', 'displayMessage');
     footer.appendChild(messageDiv);
     var message = document.createElement('span');
-    message.classList.add('footer-text');
+    message.classList.add('footer-text', 'text');
     message.innerHTML = 'SHOW MESSAGE HERE';
     messageDiv.appendChild(message);
     self.startTimer();
@@ -215,6 +190,36 @@ function Whack(container, header, main, footer) {
     }
   };
 
+
+
+  self.showRules = function() {
+    self.destroyScreens();
+    var rulesDiv = document.createElement('div');
+    rulesDiv.classList.add('rules');
+    self.main.appendChild(rulesDiv);
+    var rule1 = document.createElement('p');
+    rule1.classList.add('list', 'text');
+    rule1.innerHTML = 'if(hit) ? +=4sec;';
+    rulesDiv.appendChild(rule1);
+    var rule2 = document.createElement('p');
+    rule2.classList.add('list', 'text');
+    rule2.innerHTML = 'if(miss) ? -=2sec;';
+    rulesDiv.appendChild(rule2);
+    var rule3 = document.createElement('p');
+    rule3.classList.add('list', 'text');
+    rule3.innerHTML = 'if(score > 10 || score > 20) ? speed++;';
+    rulesDiv.appendChild(rule3);
+    var close = document.createElement('p');
+    close.classList.add('list', 'text');
+    close.innerHTML = 'close';
+    rulesDiv.appendChild(close);
+
+    close.addEventListener('click', function() {
+      self.destroyScreens();
+      self.createSplash();
+    });
+
+  };
 
 
   // ADD RANDOMIMAGE TO DIV
@@ -292,4 +297,4 @@ function Whack(container, header, main, footer) {
     self.createSplash();
   };
 
-}
+};
