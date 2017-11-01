@@ -39,6 +39,15 @@ function Whack(container, header, main, footer) {
   self.score = null;
   self.message = "";
 
+
+  // RESET VARIABLES
+  self.resetVar = function() {
+    self.gameTimer = 20.00;
+    self.player1Score = 0;
+    self.removeClassTimer = 2000;
+    self.addImageTimer = 2000;
+  };
+
   // CREATING THE SCREENS
   //create the first screen - SPLASH
   self.createSplash = function() {
@@ -48,9 +57,7 @@ function Whack(container, header, main, footer) {
     h1.classList.add('text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.gameTimer = 200.00;
-    self.player1Score = 0;
-    console.log(self.player1Score);
+    self.resetVar();
 
     //MAIN
     //PLAY BUTTON

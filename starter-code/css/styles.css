@@ -111,6 +111,7 @@ h1 {
   margin: 2rem 0;
   font-size: 4rem;
   text-align: center;
+  transition: color 0.2s ease-in;
 }
 
 .grid {
@@ -140,18 +141,10 @@ h1 {
 
 .green-flash {
   background-color: #1ec503;
-  transition: background-color 0.5s;
+  opacity: 0.5;
+  transition: all 1s;
+  z-index: 10;
 }
-
-/*
-@@keyframes red-fade {
-  from {
-    color: #1ec503;
-  }
-  to {
-    color: #ff0000;
-  }
-}*/
 
 /*END SCREEN*/
 
