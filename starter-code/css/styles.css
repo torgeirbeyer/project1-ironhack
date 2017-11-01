@@ -20,7 +20,7 @@ body {
   border: 1px solid #1ec503;
 }*/
 
-#game-container {
+.container {
   background-color: black;
   height: 100vh;
 }
@@ -132,6 +132,27 @@ h1 {
   align-items: center;
 }
 
+.blink {
+  transition: color 0.3s ease-in;
+  color: #ff0000;
+  transition: color 0.2s ease-out
+}
+
+.green-flash {
+  background-color: #1ec503;
+  transition: background-color 0.5s;
+}
+
+/*
+@@keyframes red-fade {
+  from {
+    color: #1ec503;
+  }
+  to {
+    color: #ff0000;
+  }
+}*/
+
 /*END SCREEN*/
 
 .show-score {
@@ -165,5 +186,6 @@ h1 {
   .end-button {
     height: 4rem;
     align-self: center;
+    font-size: 1rem;
   }
 }

@@ -48,7 +48,7 @@ function Whack(container, header, main, footer) {
     h1.classList.add('text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.gameTimer = 20.00;
+    self.gameTimer = 200.00;
     self.player1Score = 0;
     console.log(self.player1Score);
 
@@ -70,22 +70,11 @@ function Whack(container, header, main, footer) {
     footerText.innerText = 'how_to_play';
     self.footer.appendChild(footerText);
 
-    footerText.addEventListener('click', self.showRules);
-    //FOOTER BUTTONS
-
-    // var badPeople = document.createElement('input');
-    // badPeople.type = 'radio';
-    // badPeople.innerText = 'Bad people';
-    // footer.appendChild(badPeople);
-    // var hackers = document.createElement('input');
-    // hackers.type = 'radio';
-    // hackers.innerText = 'Hackers';
-    // footer.appendChild(hackers);
-
     // add background sound
 
     // USER INTERACTION
     playButton.addEventListener('click', self.createGameScreen);
+    footerText.addEventListener('click', self.showRules);
   };
 
   // CREATING THE GAMESCREEN
@@ -128,9 +117,6 @@ function Whack(container, header, main, footer) {
     for (var jx = 0; jx < allCells.length; jx++) {
       allCells[jx].addEventListener('click', self.checkClick);
     }
-
-
-
 
     // GAMESCREEN FOOTER
     self.footer.classList.add('footer-game-screen');
@@ -190,8 +176,7 @@ function Whack(container, header, main, footer) {
     }
   };
 
-
-
+  // RULES SCREEN
   self.showRules = function() {
     self.destroyScreens();
     var rulesDiv = document.createElement('div');
@@ -266,10 +251,27 @@ function Whack(container, header, main, footer) {
       self.updateScore();
       self.gameTimer += 4;
       e.target.style.display = "none";
+      self.flashScreen();
     } else {
       self.gameTimer -= 2;
+      self.flashTime();
     }
 
+  };
+
+  self.flashTime = function() {
+    var blink = document.querySelector('#countdown');
+    blink.classList.add('blink');
+    setTimeout(function() {
+      blink.classList.remove('blink');
+    }, 500);
+  };
+
+  self.flashScreen = function() {
+    self.container.classList.add('green-flash');
+    setTimeout(function() {
+      self.container.classList.remove('green-flash');
+    }, 500);
   };
 
   self.checkScore = function() {
@@ -283,6 +285,7 @@ function Whack(container, header, main, footer) {
       self.addImageTimer = 1500;
       self.removeClassTimer = 700;
     }
+    console.log(self.addImageTimer, self.removeClassTimer);
   };
 
   // reset variables to start
@@ -297,4 +300,4 @@ function Whack(container, header, main, footer) {
     self.createSplash();
   };
 
-};
+}
