@@ -35,9 +35,11 @@ function Whack(container, header, main, footer) {
     'images/Sarah.jpg',
     'images/Tiago.jpg'
   ];
+  // self.sounds = ['sounds/audiocheck.net_pinknoise.wav/'];
+  var myAudio = new Audio();
 
   self.score = null;
-  self.message = "";
+  self.message = null;
 
 
   // RESET VARIABLES
@@ -78,6 +80,8 @@ function Whack(container, header, main, footer) {
     self.footer.appendChild(footerText);
 
     // add background sound
+    // myAudio.play();
+    // myAudio.loop = true;
 
     // USER INTERACTION
     playButton.addEventListener('click', self.createGameScreen);
@@ -126,16 +130,15 @@ function Whack(container, header, main, footer) {
     }
 
     // GAMESCREEN FOOTER
-    self.footer.classList.add('footer-game-screen');
-    var messageDiv = document.createElement('div');
-    messageDiv.setAttribute('id', 'displayMessage');
-    footer.appendChild(messageDiv);
-    var message = document.createElement('span');
-    message.classList.add('footer-text', 'text');
-    message.innerHTML = 'SHOW MESSAGE HERE';
-    messageDiv.appendChild(message);
-    self.startTimer();
-    self.addRandomImage(self.hackersArray);
+    // self.footer.classList.add('footer-game-screen');
+    // var messageDiv = document.createElement('div');
+    // messageDiv.setAttribute('id', 'displayMessage');
+    // footer.appendChild(messageDiv);
+    // var message = document.createElement('span');
+    // message.classList.add('footer-text', 'text');
+    // message.innerHTML = 'SHOW MESSAGE HERE';
+    // messageDiv.appendChild(message);
+    self.startGame();
   };
 
   // CREATING THE END SCREEN
@@ -191,11 +194,11 @@ function Whack(container, header, main, footer) {
     self.main.appendChild(rulesDiv);
     var rule1 = document.createElement('p');
     rule1.classList.add('list', 'text');
-    rule1.innerHTML = 'if(hit) ? +=4sec;';
+    rule1.innerHTML = 'if(hit) ? time +=4sec;';
     rulesDiv.appendChild(rule1);
     var rule2 = document.createElement('p');
     rule2.classList.add('list', 'text');
-    rule2.innerHTML = 'if(miss) ? -=2sec;';
+    rule2.innerHTML = 'if(miss) ? time -=2sec;';
     rulesDiv.appendChild(rule2);
     var rule3 = document.createElement('p');
     rule3.classList.add('list', 'text');
@@ -215,6 +218,42 @@ function Whack(container, header, main, footer) {
 
 
   // ADD RANDOMIMAGE TO DIV
+
+  // ANIMATIONS
+  self.flashTime = function() {
+    var blink = document.querySelector('#countdown');
+    blink.classList.add('blink');
+    setTimeout(function() {
+      blink.classList.remove('blink');
+    }, 600);
+  };
+
+  self.flashScreen = function() {
+    self.container.classList.add('green-flash');
+    // self.score.classList.add('green-flash');
+    setTimeout(function() {
+      self.container.classList.remove('green-flash');
+      // self.score.classList.remove('green-flash');
+    }, 500);
+  };
+  // GAME FUNCTIONS
+  self.startGame = function() {
+    self.startTimer();
+    self.addRandomImage(self.hackersArray);
+  };
+
+  self.startTimer = function() {
+    var intervalId = setInterval(function() {
+      self.gameTimer -= 0.01;
+      document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);
+      if (self.gameTimer <= 0) {
+        clearInterval(intervalId);
+        self.destroyScreens();
+        self.createEndScreen();
+      }
+    }, 10);
+  };
+
   self.addRandomImage = function(array) {
     var clearRandom = setInterval(function() {
       if (self.gameTimer > 0) {
@@ -238,49 +277,6 @@ function Whack(container, header, main, footer) {
     }, self.addImageTimer);
   };
 
-  // TIMER
-  self.startTimer = function() {
-    var intervalId = setInterval(function() {
-      self.gameTimer -= 0.01;
-      document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);
-      if (self.gameTimer <= 0) {
-        clearInterval(intervalId);
-        self.destroyScreens();
-        self.createEndScreen();
-      }
-    }, 10);
-  };
-
-  self.checkClick = function(e) {
-    self.checkScore();
-    if (e.target.classList.contains('show-image')) {
-      self.player1Score++;
-      self.updateScore();
-      self.gameTimer += 4;
-      e.target.style.display = "none";
-      self.flashScreen();
-    } else {
-      self.gameTimer -= 2;
-      self.flashTime();
-    }
-
-  };
-
-  self.flashTime = function() {
-    var blink = document.querySelector('#countdown');
-    blink.classList.add('blink');
-    setTimeout(function() {
-      blink.classList.remove('blink');
-    }, 600);
-  };
-
-  self.flashScreen = function() {
-    self.container.classList.add('green-flash');
-    setTimeout(function() {
-      self.container.classList.remove('green-flash');
-    }, 500);
-  };
-
   self.checkScore = function() {
     if (self.player1Score > 20) {
       self.addImageTimer = 800;
@@ -295,13 +291,28 @@ function Whack(container, header, main, footer) {
     console.log(self.addImageTimer, self.removeClassTimer);
   };
 
-  // reset variables to start
+  self.checkClick = function(e) {
+    self.checkScore();
+    if (e.target.classList.contains('show-image')) {
+      self.player1Score++;
+      self.updateScore();
+      self.gameTimer += 4;
+      e.target.style.display = "none";
+      self.flashScreen();
+      new Audio('sounds/Right Hook-SoundBible.com-1406389182.mp3').play();
+    } else {
+      self.gameTimer -= 2;
+      self.flashTime();
+      new Audio('sounds/Computer Error-SoundBible.com-399240903.mp3').play();
+    }
 
+  };
 
-  // update score in GAMESCREEN
   self.updateScore = function() {
     self.score.innerHTML = self.player1Score;
   };
+
+
   // ON PAGE LOAD!
   self.init = function() {
     self.createSplash();
