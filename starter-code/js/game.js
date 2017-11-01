@@ -271,7 +271,7 @@ function Whack(container, header, main, footer) {
     blink.classList.add('blink');
     setTimeout(function() {
       blink.classList.remove('blink');
-    }, 500);
+    }, 600);
   };
 
   self.flashScreen = function() {

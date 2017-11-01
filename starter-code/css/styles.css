@@ -134,16 +134,42 @@ h1 {
 }
 
 .blink {
-  transition: color 0.3s ease-in;
-  color: #ff0000;
-  transition: color 0.2s ease-out
+  animation: blinker 0.5s linear;
+}
+
+@keyframes blinker {
+  0% {
+    color: #1ec504;
+  }
+  50% {
+    color: #ff0000;
+  }
+  100% {
+    color: #1ec504;
+  }
 }
 
 .green-flash {
-  background-color: #1ec503;
+  animation: flasher 0.3s linear;
+  /*background-color: #1ec503;
   opacity: 0.5;
   transition: all 1s;
-  z-index: 10;
+  z-index: 10;*/
+}
+
+@keyframes flasher {
+  0% {
+    background-color: black;
+    /*opacity: 1;*/
+  }
+  50% {
+    background-color: #1ec503;
+    /*opacity: 0.5;*/
+  }
+  100% {
+    background-color: black;
+    /*opacity: 1;*/
+  }
 }
 
 /*END SCREEN*/
