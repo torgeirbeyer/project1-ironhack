@@ -278,15 +278,18 @@ function Whack(container, header, main, footer) {
   };
 
   self.checkScore = function() {
-    if (self.player1Score > 20) {
+    if (self.player1Score >= 20) {
       self.addImageTimer = 800;
-      self.removeClassTimer = 250;
-    } else if (self.player1Score > 10) {
-      self.addImageTimer = 1000;
       self.removeClassTimer = 500;
-    } else if (self.player1Score > 5) {
-      self.addImageTimer = 1500;
+    } else if (self.player1Score >= 15) {
+      self.addImageTimer = 1000;
       self.removeClassTimer = 700;
+    } else if (self.player1Score >= 10) {
+      self.addImageTimer = 1250;
+      self.removeClassTimer = 1000;
+    } else if (self.player1Score >= 5) {
+      self.addImageTimer = 1500;
+      self.removeClassTimer = 1250;
     }
     console.log(self.addImageTimer, self.removeClassTimer);
   };
@@ -294,9 +297,7 @@ function Whack(container, header, main, footer) {
   self.checkClick = function(e) {
     self.checkScore();
     if (e.target.classList.contains('show-image')) {
-      self.player1Score++;
       self.updateScore();
-      self.gameTimer += 4;
       e.target.style.display = "none";
       self.flashScreen();
       new Audio('sounds/Right Hook-SoundBible.com-1406389182.mp3').play();
@@ -309,6 +310,8 @@ function Whack(container, header, main, footer) {
   };
 
   self.updateScore = function() {
+    self.player1Score++;
+    self.gameTimer += 4;
     self.score.innerHTML = self.player1Score;
   };
 
