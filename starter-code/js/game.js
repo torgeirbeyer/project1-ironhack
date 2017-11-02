@@ -16,7 +16,7 @@ function Whack(container, header, main, footer) {
   self.slackersArray = [
     'images/Byron.png',
     'images/Isak.png',
-    'images/Luis.png',
+    'images/luis.png',
     'images/andre.png'
   ];
   self.hackersArray = [
@@ -243,7 +243,7 @@ function Whack(container, header, main, footer) {
     rulesDiv.appendChild(rule0);
     var rule1 = document.createElement('p');
     rule1.classList.add('list', 'text');
-    rule1.innerHTML = 'if(hit) ? time +=4sec;';
+    rule1.innerHTML = 'if(hit) ? time +=3sec;';
     rulesDiv.appendChild(rule1);
     var rule2 = document.createElement('p');
     rule2.classList.add('list', 'text');
@@ -331,7 +331,13 @@ function Whack(container, header, main, footer) {
   };
 
   self.checkScore = function() {
-    if (self.player1Score >= 40) {
+    if (self.player1Score >= 60) {
+      self.addImageTimer = 300;
+      self.removeClassTimer = 300;
+    } else if (self.player1Score >= 50) {
+      self.addImageTimer = 400;
+      self.removeClassTimer = 400;
+    } else if (self.player1Score >= 40) {
       self.addImageTimer = 500;
       self.removeClassTimer = 500;
     } else if (self.player1Score >= 30) {
