@@ -10,10 +10,16 @@ function Whack(container, header, main, footer) {
   self.removeClassTimer = 0;
   self.addImageTimer = 0;
   self.player1Score = 0;
+  self.score = null;
   // self.player2Score = 0;
   self.highScores = [];
+  self.slackersArray = [
+    'images/Byron.jpg',
+    'images/Isak.jpg',
+    'images/Luis.jpg'
+  ];
   self.hackersArray = [
-    'images/Torgeir.jpg',
+    'images/torgeir.png',
     'images/Bryan.jpg',
     'images/Clara.jpg',
     'images/Constantinos.jpg',
@@ -34,12 +40,12 @@ function Whack(container, header, main, footer) {
     'images/Sarah.jpg',
     'images/Tiago.jpg'
   ];
+  self.hackers = false;
+  self.slackers = false;
   // self.sounds = ['sounds/audiocheck.net_pinknoise.wav/'];
   // var myAudio = new Audio();
 
 
-  self.score = null;
-  self.message = null;
 
 
   // RESET VARIABLES
@@ -48,6 +54,8 @@ function Whack(container, header, main, footer) {
     self.player1Score = 0;
     self.removeClassTimer = remove;
     self.addImageTimer = add;
+    self.hackers = false;
+    self.slackers = false;
   };
 
   // CREATING THE SCREENS
@@ -72,6 +80,39 @@ function Whack(container, header, main, footer) {
     playButton.innerHTML = 'whack';
     div.appendChild(playButton);
 
+    // CHOOSE LEVELS
+    var choicesDiv = document.createElement('div');
+    choicesDiv.classList.add('choices');
+    self.main.appendChild(choicesDiv);
+
+    var choiceText = document.createElement('p');
+    choiceText.classList.add('text', 'label-text');
+    choiceText.innerText = 'choose_what_to_whack';
+    choicesDiv.appendChild(choiceText);
+
+    var choice1 = document.createElement('input');
+    choice1.setAttribute('id', 'hacker');
+    choice1.setAttribute('type', 'radio');
+    choice1.setAttribute('name', 'choice');
+    choicesDiv.appendChild(choice1);
+    var label1 = document.createElement('label');
+    label1.classList.add('text', 'label-text');
+    label1.setAttribute('for', 'hacker');
+    label1.innerText = 'hackers';
+    choicesDiv.appendChild(label1);
+
+    var choice2 = document.createElement('input');
+    choice2.setAttribute('id', 'slacker');
+    choice2.setAttribute('type', 'radio');
+    choice2.setAttribute('name', 'choice');
+    choicesDiv.appendChild(choice2);
+    var label2 = document.createElement('label');
+    label2.classList.add('text', 'label-text');
+    label2.setAttribute('for', 'slacker');
+    label2.innerText = 'slackers';
+    choicesDiv.appendChild(label2);
+
+
     //FOOTER
     //FOOTER TEXT
     var footerText = document.createElement('p');
@@ -81,8 +122,25 @@ function Whack(container, header, main, footer) {
 
     // new Audio('sounds/brown_noise.mp3').play();
     // USER INTERACTION
+
+    choice1.addEventListener('click', self.checkChoice);
+    choice2.addEventListener('click', self.checkChoice);
+
     playButton.addEventListener('click', self.createGameScreen);
+    playButton.disabled = true;
+
     footerText.addEventListener('click', self.showRules);
+  };
+
+  self.checkChoice = function() {
+    if (!self.hackers) {
+      self.hackers = true;
+      self.slackers = false;
+    } else {
+      self.hackers = false;
+      self.slackers = true;
+    }
+    document.getElementsByClassName('big-button')[0].disabled = false;
   };
 
   // CREATING THE GAMESCREEN
@@ -180,6 +238,10 @@ function Whack(container, header, main, footer) {
     var rulesDiv = document.createElement('div');
     rulesDiv.classList.add('rules');
     self.main.appendChild(rulesDiv);
+    var rule0 = document.createElement('p');
+    rule0.classList.add('list', 'text');
+    rule0.innerHTML = 'choose_hacker_or_slacker';
+    rulesDiv.appendChild(rule0);
     var rule1 = document.createElement('p');
     rule1.classList.add('list', 'text');
     rule1.innerHTML = 'if(hit) ? time +=4sec;';
@@ -190,7 +252,7 @@ function Whack(container, header, main, footer) {
     rulesDiv.appendChild(rule2);
     var rule3 = document.createElement('p');
     rule3.classList.add('list', 'text');
-    rule3.innerHTML = 'if(score > 10 || score > 20) ? speed++;';
+    rule3.innerHTML = 'if(score +=5) ? speed++;';
     rulesDiv.appendChild(rule3);
     var close = document.createElement('p');
     close.classList.add('list', 'text');
@@ -201,7 +263,6 @@ function Whack(container, header, main, footer) {
       self.destroyScreens();
       self.createSplash();
     });
-
   };
 
   // ANIMATIONS
@@ -226,7 +287,11 @@ function Whack(container, header, main, footer) {
   // GAME FUNCTIONS
   self.startGame = function() {
     self.startTimer();
-    self.addRandomImage(self.hackersArray);
+    if (self.hackers === true) {
+      self.addRandomImage(self.hackersArray);
+    } else if (self.slackers === true) {
+      self.addRandomImage(self.slackersArray);
+    }
   };
 
   self.startTimer = function() {
