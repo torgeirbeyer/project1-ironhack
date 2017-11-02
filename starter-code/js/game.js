@@ -14,33 +14,34 @@ function Whack(container, header, main, footer) {
   // self.player2Score = 0;
   self.highScores = [];
   self.slackersArray = [
-    'images/Byron.jpg',
-    'images/Isak.jpg',
-    'images/Luis.jpg'
+    'images/Byron.png',
+    'images/Isak.png',
+    'images/Luis.png',
+    'images/andre.png'
   ];
   self.hackersArray = [
     'images/torgeir.png',
-    'images/Bryan.jpg',
-    'images/Clara.jpg',
-    'images/Constantinos.jpg',
-    'images/Cristian.jpg',
-    'images/Cristina.jpg',
-    'images/Dafne.jpg',
-    'images/David.jpg',
-    'images/Desiree.jpg',
-    'images/Dominik.jpg',
-    'images/Eloi.jpg',
-    'images/Elvin.jpg',
-    'images/Felice.jpg',
-    'images/Jean.jpg',
-    'images/Juan.jpg',
-    'images/Jordi.jpg',
-    'images/Michal.jpg',
-    'images/Sara.jpg',
-    'images/Sarah.jpg',
-    'images/Tiago.jpg'
+    'images/Bryan.png',
+    'images/Clara.png',
+    'images/Constantinos.png',
+    'images/Cristian.png',
+    'images/Cristina.png',
+    'images/Dafne.png',
+    'images/David.png',
+    'images/Desiree.png',
+    'images/Dominik.png',
+    'images/Eloi.png',
+    'images/Elvin.png',
+    'images/Felice.png',
+    'images/Jean.png',
+    'images/juan.png',
+    'images/Jordi.png',
+    'images/Michal.png',
+    'images/Sara.png',
+    'images/Sarah.png',
+    'images/tiago.png'
   ];
-  self.hackers = false;
+  self.hackers = true;
   self.slackers = false;
   // self.sounds = ['sounds/audiocheck.net_pinknoise.wav/'];
   // var myAudio = new Audio();
@@ -54,7 +55,7 @@ function Whack(container, header, main, footer) {
     self.player1Score = 0;
     self.removeClassTimer = remove;
     self.addImageTimer = add;
-    self.hackers = false;
+    self.hackers = true;
     self.slackers = false;
   };
 
@@ -94,6 +95,7 @@ function Whack(container, header, main, footer) {
     choice1.setAttribute('id', 'hacker');
     choice1.setAttribute('type', 'radio');
     choice1.setAttribute('name', 'choice');
+    choice1.setAttribute('checked', 'checked');
     choicesDiv.appendChild(choice1);
     var label1 = document.createElement('label');
     label1.classList.add('text', 'label-text');
@@ -116,18 +118,16 @@ function Whack(container, header, main, footer) {
     //FOOTER
     //FOOTER TEXT
     var footerText = document.createElement('p');
-    footerText.classList.add('text', 'footer-splash');
+    footerText.classList.add('text', 'footer-text');
     footerText.innerText = 'how_to_play';
     self.footer.appendChild(footerText);
 
-    // new Audio('sounds/brown_noise.mp3').play();
     // USER INTERACTION
 
     choice1.addEventListener('click', self.checkChoice);
     choice2.addEventListener('click', self.checkChoice);
 
     playButton.addEventListener('click', self.createGameScreen);
-    playButton.disabled = true;
 
     footerText.addEventListener('click', self.showRules);
   };
@@ -140,7 +140,6 @@ function Whack(container, header, main, footer) {
       self.hackers = false;
       self.slackers = true;
     }
-    document.getElementsByClassName('big-button')[0].disabled = false;
   };
 
   // CREATING THE GAMESCREEN
@@ -210,8 +209,8 @@ function Whack(container, header, main, footer) {
     var footerDiv = document.createElement('div');
     footerDiv.classList.add('reset');
     self.footer.appendChild(footerDiv);
-    var playAgain = document.createElement('button');
-    playAgain.classList.add('end-button');
+    var playAgain = document.createElement('p');
+    playAgain.classList.add('text', 'footer-text');
     playAgain.innerHTML = 'whack_again?';
     footerDiv.appendChild(playAgain);
     // RESET TO SPLASH IF USER WANT TO PLAY AGAIN
@@ -295,6 +294,8 @@ function Whack(container, header, main, footer) {
   };
 
   self.startTimer = function() {
+    console.log(self.hackers);
+    console.log(self.slackers);
     var intervalId = setInterval(function() {
       self.gameTimer -= 0.01;
       document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);
@@ -368,7 +369,7 @@ function Whack(container, header, main, footer) {
 
   self.updateScore = function() {
     self.player1Score++;
-    self.gameTimer += 4;
+    self.gameTimer += 3;
     self.score.innerHTML = self.player1Score;
   };
 

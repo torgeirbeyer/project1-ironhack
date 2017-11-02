@@ -14,12 +14,6 @@ body {
   padding: 0;
 }
 
-/*to be removed*/
-
-header, main, footer, div {
-  border: 1px solid #1ec503;
-}
-
 .container {
   background-color: black;
   height: 100vh;
@@ -76,7 +70,7 @@ input {
 /* Labels for checked inputs */
 
 input:checked+label {
-  color: red;
+  color: #ff0000;
 }
 
 #header, #footer {
@@ -95,7 +89,7 @@ input:checked+label {
   align-content: center;
 }
 
-.footer-splash {
+.footer-text {
   font-size: 5vw;
 }
 
@@ -129,7 +123,7 @@ input:checked+label {
 }
 
 .show-image {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .timer, .score {
