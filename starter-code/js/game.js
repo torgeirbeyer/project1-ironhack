@@ -6,10 +6,9 @@ function Whack(container, header, main, footer) {
   self.header = header;
   self.main = main;
   self.footer = footer;
-  //variables to be updated
-  self.gametimer = 200;
-  self.removeClassTimer = 2000;
-  self.addImageTimer = 2000;
+  self.gametimer = 0;
+  self.removeClassTimer = 0;
+  self.addImageTimer = 0;
   self.player1Score = 0;
   // self.player2Score = 0;
   self.highScores = [];
@@ -36,30 +35,31 @@ function Whack(container, header, main, footer) {
     'images/Tiago.jpg'
   ];
   // self.sounds = ['sounds/audiocheck.net_pinknoise.wav/'];
-  var myAudio = new Audio();
+  // var myAudio = new Audio();
+
 
   self.score = null;
   self.message = null;
 
 
   // RESET VARIABLES
-  self.resetVar = function() {
-    self.gameTimer = 20.00;
+  self.resetVar = function(timer, remove, add) {
+    self.gameTimer = timer;
     self.player1Score = 0;
-    self.removeClassTimer = 2000;
-    self.addImageTimer = 2000;
+    self.removeClassTimer = remove;
+    self.addImageTimer = add;
   };
 
   // CREATING THE SCREENS
   //create the first screen - SPLASH
   self.createSplash = function() {
+    self.resetVar(20, 1500, 1500);
     //HEADER
     //HEADER TEXT
     var h1 = document.createElement('h1');
-    h1.classList.add('text');
+    h1.classList.add('text', 'header-text');
     h1.innerText = 'whack_a_hack';
     self.header.appendChild(h1);
-    self.resetVar();
 
     //MAIN
     //PLAY BUTTON
@@ -75,7 +75,7 @@ function Whack(container, header, main, footer) {
     //FOOTER
     //FOOTER TEXT
     var footerText = document.createElement('p');
-    footerText.classList.add('text');
+    footerText.classList.add('text', 'footer-splash');
     footerText.innerText = 'how_to_play';
     self.footer.appendChild(footerText);
 
@@ -87,7 +87,6 @@ function Whack(container, header, main, footer) {
 
   // CREATING THE GAMESCREEN
   self.createGameScreen = function() {
-
     self.destroyScreens();
     //GAMESCREEN HEADER
     self.header.classList.add('header-game-screen');
@@ -96,7 +95,7 @@ function Whack(container, header, main, footer) {
     self.header.appendChild(timerDiv);
     var timerSpan = document.createElement('span');
     timerSpan.setAttribute('id', 'countdown');
-    timerSpan.classList.add('text');
+    timerSpan.classList.add('text', 'game-text');
     timerSpan.innerHTML = self.gameTimer;
     timerDiv.appendChild(timerSpan);
 
@@ -104,7 +103,7 @@ function Whack(container, header, main, footer) {
     scoreDiv.classList.add('score');
     self.header.appendChild(scoreDiv);
     self.score = document.createElement('span');
-    self.score.classList.add('text');
+    self.score.classList.add('text', 'game-text');
     self.score.setAttribute('id', 'updateScore');
     self.score.innerHTML = self.player1Score;
     scoreDiv.appendChild(self.score);
@@ -136,6 +135,7 @@ function Whack(container, header, main, footer) {
     gameOver.classList.add('header-end-screen');
     self.header.appendChild(gameOver);
     var headerEnd = document.createElement('h1');
+    headerEnd.classList.add('text', 'header-text');
     headerEnd.innerHTML = 'time_out!';
     gameOver.appendChild(headerEnd);
 
@@ -204,9 +204,6 @@ function Whack(container, header, main, footer) {
 
   };
 
-
-  // ADD RANDOMIMAGE TO DIV
-
   // ANIMATIONS
   self.flashTime = function() {
     var blink = document.querySelector('#countdown');
@@ -224,6 +221,8 @@ function Whack(container, header, main, footer) {
       // self.score.classList.remove('green-flash');
     }, 500);
   };
+
+
   // GAME FUNCTIONS
   self.startGame = function() {
     self.startTimer();
@@ -266,20 +265,25 @@ function Whack(container, header, main, footer) {
   };
 
   self.checkScore = function() {
-    if (self.player1Score >= 20) {
-      self.addImageTimer = 800;
+    if (self.player1Score >= 40) {
+      self.addImageTimer = 500;
       self.removeClassTimer = 500;
-    } else if (self.player1Score >= 15) {
-      self.addImageTimer = 1000;
+    } else if (self.player1Score >= 30) {
+      self.addImageTimer = 600;
+      self.removeClassTimer = 600;
+    } else if (self.player1Score >= 20) {
+      self.addImageTimer = 700;
       self.removeClassTimer = 700;
+    } else if (self.player1Score >= 15) {
+      self.addImageTimer = 800;
+      self.removeClassTimer = 800;
     } else if (self.player1Score >= 10) {
-      self.addImageTimer = 1250;
+      self.addImageTimer = 1000;
       self.removeClassTimer = 1000;
     } else if (self.player1Score >= 5) {
-      self.addImageTimer = 1500;
+      self.addImageTimer = 1250;
       self.removeClassTimer = 1250;
     }
-    console.log(self.addImageTimer, self.removeClassTimer);
   };
 
   self.checkClick = function(e) {
