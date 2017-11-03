@@ -11,8 +11,7 @@ function Whack(container, header, main, footer) {
   self.addImageTimer = 0;
   self.player1Score = 0;
   self.score = null;
-  // self.player2Score = 0;
-  self.highScores = [];
+  // self.highScores = [];
   self.slackersArray = [
     'images/Byron.png',
     'images/Isak.png',
@@ -43,8 +42,7 @@ function Whack(container, header, main, footer) {
   ];
   self.hackers = true;
   self.slackers = false;
-  // self.sounds = ['sounds/audiocheck.net_pinknoise.wav/'];
-  // var myAudio = new Audio();
+
 
 
 
@@ -130,16 +128,6 @@ function Whack(container, header, main, footer) {
     playButton.addEventListener('click', self.createGameScreen);
 
     footerText.addEventListener('click', self.showRules);
-  };
-
-  self.checkChoice = function() {
-    if (!self.hackers) {
-      self.hackers = true;
-      self.slackers = false;
-    } else {
-      self.hackers = false;
-      self.slackers = true;
-    }
   };
 
   // CREATING THE GAMESCREEN
@@ -293,9 +281,17 @@ function Whack(container, header, main, footer) {
     }
   };
 
+  self.checkChoice = function() {
+    if (!self.hackers) {
+      self.hackers = true;
+      self.slackers = false;
+    } else {
+      self.hackers = false;
+      self.slackers = true;
+    }
+  };
+
   self.startTimer = function() {
-    console.log(self.hackers);
-    console.log(self.slackers);
     var intervalId = setInterval(function() {
       self.gameTimer -= 0.01;
       document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);

@@ -1,0 +1,11 @@
+Game.Prototype.uodate = function() {
+  var self = this;
+  self.frfr += 2;
+  if () {
+    self
+    var
+    if () {
+
+    }
+  }
+}

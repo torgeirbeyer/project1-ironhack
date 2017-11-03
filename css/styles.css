@@ -216,11 +216,7 @@ input:checked+label {
   }
 }
 
-@keyframes blinker {
-  50% {
-    color: #ff0000;
-    font-size: 2rem;
-  }
+
 }*/
 
 /*IPAD + IPAD PRO*/
@@ -249,17 +245,23 @@ input:checked+label {
 
 /*DESKTOP*/
 
-@media (min-width: 1024px) {
+@media (min-width: 950px) {
   .grid, .rules {
     margin: 0 20%;
+    background-position:
   }
   .header-text, .big-button, .game-text {
-    font-size: 4vw;
+    font-size: 5vw;
   }
   .footer-text {
-    font-size: 3vw;
+    font-size: 4vw;
   }
   .big-button {
-    width: 15vw;
+    width: 20vw;
   }
-}
+  @keyframes blinker {
+    50% {
+      color: #ff0000;
+      font-size: 4rem;
+    }
+  }
