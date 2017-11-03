@@ -1,10 +1,13 @@
 {
-  "undef": true,
-  "unused": true,
   "strict": "global",
   "globals": {
-    "window": true,
+    "Whack": true,
     "console": true,
-    "document": true
+    "document": true,
+    "self": true,
+    "setInterval": true,
+    "clearInterval": true,
+    "setTimeout": true,
+    "Audio": true
   }
 }
