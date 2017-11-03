@@ -250,7 +250,16 @@ input:checked+label {
 /*DESKTOP*/
 
 @media (min-width: 1024px) {
-  .grid {
+  .grid, .rules {
     margin: 0 20%;
+  }
+  .header-text, .big-button, .game-text {
+    font-size: 4vw;
+  }
+  .footer-text {
+    font-size: 3vw;
+  }
+  .big-button {
+    width: 15vw;
   }
 }
