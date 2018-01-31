@@ -253,7 +253,7 @@ function Whack(container, header, main, footer) {
   };
 
   // ANIMATIONS
-  self.flashTime = function() {
+  self.flashTime = () => {
     var blink = document.querySelector('#countdown');
     blink.classList.add('blink');
     setTimeout(function() {
@@ -261,7 +261,7 @@ function Whack(container, header, main, footer) {
     }, 600);
   };
 
-  self.flashScreen = function() {
+  self.flashScreen = () => {
     self.container.classList.add('green-flash');
     // self.score.classList.add('green-flash');
     setTimeout(function() {
@@ -272,7 +272,7 @@ function Whack(container, header, main, footer) {
 
 
   // GAME FUNCTIONS
-  self.startGame = function() {
+  self.startGame = () => {
     self.startTimer();
     if (self.hackers === true) {
       self.addRandomImage(self.hackersArray);
@@ -281,7 +281,7 @@ function Whack(container, header, main, footer) {
     }
   };
 
-  self.checkChoice = function() {
+  self.checkChoice = () => {
     if (!self.hackers) {
       self.hackers = true;
       self.slackers = false;
@@ -291,7 +291,7 @@ function Whack(container, header, main, footer) {
     }
   };
 
-  self.startTimer = function() {
+  self.startTimer = () => {
     var intervalId = setInterval(function() {
       self.gameTimer -= 0.01;
       document.getElementById('countdown').textContent = self.gameTimer.toFixed(2);
@@ -303,7 +303,7 @@ function Whack(container, header, main, footer) {
     }, 10);
   };
 
-  self.addRandomImage = function(array) {
+  self.addRandomImage = (array) => {
     var clearRandom = setInterval(function() {
       if (self.gameTimer > 0) {
         // selecting the image
@@ -326,7 +326,7 @@ function Whack(container, header, main, footer) {
     }, self.addImageTimer);
   };
 
-  self.checkScore = function() {
+  self.checkScore = () => {
     if (self.player1Score >= 60) {
       self.addImageTimer = 300;
       self.removeClassTimer = 300;
@@ -352,9 +352,10 @@ function Whack(container, header, main, footer) {
       self.addImageTimer = 1250;
       self.removeClassTimer = 1250;
     }
+    console.log(self.addImageTimer, self.removeClassTimer, self.player1Score);
   };
 
-  self.checkClick = function(e) {
+  self.checkClick = (e) => {
     self.checkScore();
     if (e.target.classList.contains('show-image')) {
       self.updateScore();
@@ -369,7 +370,7 @@ function Whack(container, header, main, footer) {
 
   };
 
-  self.updateScore = function() {
+  self.updateScore = () => {
     self.player1Score++;
     self.gameTimer += 3;
     self.score.innerHTML = self.player1Score;
@@ -377,7 +378,7 @@ function Whack(container, header, main, footer) {
 
 
   // ON PAGE LOAD!
-  self.init = function() {
+  self.init = () => {
     self.createSplash();
   };
 

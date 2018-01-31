@@ -202,26 +202,9 @@ input:checked+label {
 
 /*RESPONSIVE*/
 
-/*@media (min-width: 375px) {
-  .timer, .score {
-    font-size: 1.5rem;
-    letter-spacing: 0.5rem;
-  }
-  h1 {
-    font-size: 1.5rem;
-    align-self: center;
-  }
-  .show-score {
-    font-size: 2rem;
-  }
-}
-
-
-}*/
-
 /*IPAD + IPAD PRO*/
 
-/*@media (min-width: 767px) {
+@media (min-width: 767px) {
   .header-splash {
     font-size: 3.5rem;
   }
@@ -241,7 +224,7 @@ input:checked+label {
   .grid {
     margin: 0 10%;
   }
-}*/
+}
 
 /*DESKTOP*/
 
